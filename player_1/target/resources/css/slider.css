@@ -1,0 +1,16 @@
+.slider {
+    -slider-track-color: linear-gradient(to right, -slider-filled-track-color 0%, -slider-filled-track-color 100%);
+        /* 基础颜色 */
+        -slider-filled-track-color:rgb(72, 57, 57); 
+        -slider-track-color: rgb(220, 194, 199);
+    }
+    
+    .slider .track {
+        -fx-base:  rgb(220, 194, 199);
+        -fx-background-color: -slider-track-color;
+    }
+    
+    .slider .thumb {
+        -fx-background-color: rgb(54, 54, 58);
+    }
+
