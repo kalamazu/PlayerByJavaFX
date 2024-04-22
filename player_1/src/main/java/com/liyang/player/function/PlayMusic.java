@@ -121,6 +121,11 @@ void playMusicByButtonHandler(String path){
                         isPlaying=true;
                         play.setImage(new Image("image/stop.png"));
                     }
+                    else if(selectedItem==list.getSelectionModel().getSelectedItem()){
+                        mediaPlayer.play();
+                        isPlaying=true;
+                        play.setImage(new Image("image/stop.png"));
+                    }
                     else {
                         mediaPlayer.stop();
                         selectedItem = list.getSelectionModel().getSelectedItem();
@@ -280,12 +285,12 @@ void onMouseClickedUsual(MouseEvent event){
     ImageView imageButton=(ImageView)event.getSource();
     double originalScaleX=imageButton.getScaleX();
     double originalScaleY=imageButton.getScaleY();
-    ScaleTransition shrinkTransition = new ScaleTransition(Duration.seconds(0.1), imageButton);
+    ScaleTransition shrinkTransition = new ScaleTransition(Duration.seconds(0.05), imageButton);
     shrinkTransition.setToX(0.8 * originalScaleX);
     shrinkTransition.setToY(0.8 * originalScaleY);
     
     // 创建恢复动画
-    ScaleTransition restoreTransition = new ScaleTransition(Duration.seconds(0.1), imageButton);
+    ScaleTransition restoreTransition = new ScaleTransition(Duration.seconds(0.05), imageButton);
     restoreTransition.setToX(originalScaleX);
     restoreTransition.setToY(originalScaleY);
    
