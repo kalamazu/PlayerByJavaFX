@@ -35,11 +35,11 @@ public class PlayMusic {
     private boolean isPlaying=false;
     private ChangeListener<Duration> timeListener;
     private String selectedItem;
-    
     public MediaPlayer getMediaPlayer(){
         return mediaPlayer;
     }
     
+
     public PlayMusic(Controller controller,String path)
     {   
     slider=controller.getSlider();
@@ -58,72 +58,89 @@ public class PlayMusic {
     playLastMusicHandler(path);
     playNextMusicHandler(path);
     timeLine ();
+   
 }
 
 
 void playMusicByButtonHandler(String path){
     
     play.setOnMouseClicked(event->{
-        
-        onMouseClickedUsual(event);   
-        
-        if(isPlaying){
-            if(selectedItem==list.getSelectionModel().getSelectedItem()){
-                mediaPlayer.pause();
-                play.setImage(new Image("image/play.png"));
-                isPlaying=false;
+        onMouseClickedUsual(event);
+                if(isPlaying){
+                    if(!list.isFocused()){
+                        mediaPlayer.pause();
+                        isPlaying=false;
+                        play.setImage(new Image("image/play.png"));
+                    }
+                    else if(selectedItem==list.getSelectionModel().getSelectedItem()){
+                        mediaPlayer.pause();
+                        isPlaying=false;
+                        play.setImage(new Image("image/play.png"));
+                    }
+                    else{
+                        mediaPlayer.stop();
+                        selectedItem = list.getSelectionModel().getSelectedItem();
+                        label.setText("正在播放："+selectedItem);
+                        String musicPath = path + "/"+selectedItem;
+                        mediaPlayer = MediaPlayerFactory.createMediaPlayer(musicPath);
+                        initiaSlider();     
+                        playHistory(selectedItem);  
+                        mediaPlayer.play();
+                            mediaPlayer.setOnEndOfMedia(()->{
+                                mediaPlayer.stop();
+                                playRandomMusic(path);
+                            });
+                        isPlaying=true;
+                        play.setImage(new Image("image/stop.png"));
+                    }
+                }
                 
+                else{
+                    if(list.getSelectionModel().getSelectedItem()==null&&mediaPlayer==null){
+                        label.setText("请选择歌曲");
+                    }
+                    else if(!list.isFocused()){
+                        
+                        mediaPlayer.play();
+                        isPlaying=true;
+                        play.setImage(new Image("image/stop.png"));
+                    }
+                    else if(mediaPlayer==null&&list.getSelectionModel().getSelectedItem()!=null){
+                        selectedItem = list.getSelectionModel().getSelectedItem();
+                        label.setText("正在播放："+selectedItem);
+                        String musicPath = path + "/"+selectedItem;
+                        mediaPlayer = MediaPlayerFactory.createMediaPlayer(musicPath);
+                        initiaSlider();
+                        initiaVolume();     
+                        playHistory(selectedItem);  
+                        mediaPlayer.play();
+                            mediaPlayer.setOnEndOfMedia(()->{
+                                mediaPlayer.stop();
+                                playRandomMusic(path);
+                            });
+                        isPlaying=true;
+                        play.setImage(new Image("image/stop.png"));
+                    }
+                    else {
+                        mediaPlayer.stop();
+                        selectedItem = list.getSelectionModel().getSelectedItem();
+                        label.setText("正在播放："+selectedItem);
+                        String musicPath = path + "/"+selectedItem;
+                        mediaPlayer = MediaPlayerFactory.createMediaPlayer(musicPath);
+                        initiaSlider();     
+                        playHistory(selectedItem);  
+                        mediaPlayer.play();
+                            mediaPlayer.setOnEndOfMedia(()->{
+                                mediaPlayer.stop();
+                                playRandomMusic(path);
+                            });
+                        isPlaying=true;
+                        play.setImage(new Image("image/stop.png"));
+                    }
+                    
             }
-            else{
-                mediaPlayer.stop();
-                selectedItem = list.getSelectionModel().getSelectedItem();
-                label.setText("正在播放："+selectedItem);
-                String musicPath = path + "/"+selectedItem;
-                mediaPlayer = MediaPlayerFactory.createMediaPlayer(musicPath);
-                initiaSlider();     
-                playHistory(selectedItem);  
-                mediaPlayer.play();
-                mediaPlayer.setOnEndOfMedia(()->{
-                    mediaPlayer.stop();
-                    playRandomMusic(path);
-                });
-                isPlaying=true;
-                play.setImage(new Image("image/stop.png"));
-            }
-            
-        }
-        
-        else{
-            if(mediaPlayer==null&&list.getSelectionModel().getSelectedItem()==null){
-                label.setText("请选择歌曲");
-            }
-            else if(selectedItem!=list.getSelectionModel().getSelectedItem()){
-                selectedItem = list.getSelectionModel().getSelectedItem();
-                label.setText("正在播放："+selectedItem);
-                String musicPath =path + selectedItem;
-                mediaPlayer = MediaPlayerFactory.createMediaPlayer(musicPath);
-                initiaVolume();                    
-                initiaSlider();
-                playHistory(selectedItem);
-                mediaPlayer.play();
-                mediaPlayer.setOnEndOfMedia(()->{
-                    mediaPlayer.stop();
-                    playRandomMusic(path);
-                });
-                isPlaying=true;
-                play.setImage(new Image("image/stop.png"));
-            }
-            else{
-                mediaPlayer.play();
-                isPlaying=true;
-                play.setImage(new Image("image/stop.png"));
-                mediaPlayer.setOnEndOfMedia(()->{
-                    mediaPlayer.stop();
-                    playRandomMusic(path);
-                });
-            }
-        }
-});  
+    });
+      
 }
 
 void playMusicByItemHandler(String path){
@@ -263,8 +280,6 @@ void onMouseClickedUsual(MouseEvent event){
     ImageView imageButton=(ImageView)event.getSource();
     double originalScaleX=imageButton.getScaleX();
     double originalScaleY=imageButton.getScaleY();
-    // 创建缩小动画
-    
     ScaleTransition shrinkTransition = new ScaleTransition(Duration.seconds(0.1), imageButton);
     shrinkTransition.setToX(0.8 * originalScaleX);
     shrinkTransition.setToY(0.8 * originalScaleY);
@@ -372,4 +387,16 @@ void playRandomMusic(String path){
         System.out.println("音乐列表为空，无法播放随机音乐。");
     }
 }
+
+void closeMediaPlayer(){
+    mediaPlayer.stop();
+    label.setText("暂未播放");
+    play.setImage(new Image("image/play.png"));
+    isPlaying = false;
+    lastMusic.clear();
+    slider.setValue(0);
+    vslider.setValue(50);
+    mediaPlayer.currentTimeProperty().removeListener(timeListener);
+}
+
 }

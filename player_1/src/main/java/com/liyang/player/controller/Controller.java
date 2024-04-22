@@ -39,7 +39,9 @@ public class Controller {
     @FXML
     private AnchorPane Pane;
     @FXML
-    private MenuItem fileItem;
+    private MenuItem openMusicFolder;
+    @FXML
+    private MenuItem closeMusicFolder;
 
 public Slider getSlider(){
         return this.slider;
@@ -66,9 +68,11 @@ public PlayMusic getPlayMusic(PlayMusic playMusic){
     return this.playMusic;
 }
 public MenuItem getOpenItem(){
-    return this.fileItem;
+    return this.openMusicFolder;
 }
-
+public MenuItem getCloseItem(){
+    return this.closeMusicFolder;
+}
 
 
 @FXML

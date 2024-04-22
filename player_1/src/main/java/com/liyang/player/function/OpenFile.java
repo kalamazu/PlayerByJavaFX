@@ -18,25 +18,41 @@ public class OpenFile {
     
 
     public OpenFile(Controller controller,Stage stage){
+        openMusicFolder(controller,stage);
+        closeMusicFolder(controller,stage);
+        
+    }
+    void openMusicFolder(Controller controller,Stage stage){
         MenuItem openFile=controller.getOpenItem();
         list=controller.getListOfMusic();
-            openFile.setOnAction(event -> {              
-                    DirectoryChooser directoryChooser = new DirectoryChooser();
-                    directoryChooser.setTitle("选择文件夹");
-                    File selectedDirectory = directoryChooser.showDialog(stage);
-                    if (selectedDirectory != null) {
-                        if(list!=null&&playMusic==null){list.getItems().clear();}
-                        if(playMusic!=null&&playMusic.getMediaPlayer()!=null){                           
-                            playMusic.getMediaPlayer().stop();                          
-                        }
-                        this.path=selectedDirectory.getAbsolutePath();
-                        initiaMusicFolder(path);
-                        playMusic=new PlayMusic(controller,path);
-                    } else {
-                        System.out.println("用户取消了选择");
+        openFile.setOnAction(event -> {              
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setTitle("选择文件夹");
+                File selectedDirectory = directoryChooser.showDialog(stage);
+                if (selectedDirectory != null) {
+                    if(list!=null&&playMusic==null){list.getItems().clear();}
+                    if(playMusic!=null&&playMusic.getMediaPlayer()!=null){                           
+                        playMusic.getMediaPlayer().stop();                          
                     }
-                
-                    });
+                    this.path=selectedDirectory.getAbsolutePath();
+                    initiaMusicFolder(path);
+                    playMusic=new PlayMusic(controller,path);
+                } else {
+                    System.out.println("用户取消了选择");
+                }                
+                });
+    }
+    
+    void closeMusicFolder(Controller controller,Stage stage){
+        MenuItem closeFile=controller.getCloseItem();
+        closeFile.setOnAction(event -> {
+            if(list!=null){
+                list.getItems().clear();
+            }
+            if(playMusic!=null){
+                playMusic.closeMediaPlayer();
+            }
+        });
     }
 
     void initiaMusicFolder(String path){
@@ -59,6 +75,7 @@ public class OpenFile {
             System.out.println("Invalid music folder path: " + musicFolderPath);
         }
         list.setItems(musicFileNames);//为ListView设置内容
+       
     }
 
 }

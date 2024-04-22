@@ -60,8 +60,8 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Close" />
-                              <MenuItem fx:id="fileItem" mnemonicParsing="false" text="Open Music Folder" />
+                              <MenuItem fx:id="openMusicFolder" mnemonicParsing="false" text="Open Music Folder" />
+                          <MenuItem fx:id="closeMusicFolder" mnemonicParsing="false" text="Close Music Folder" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edit">
