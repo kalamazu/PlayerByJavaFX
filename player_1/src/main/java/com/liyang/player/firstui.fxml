@@ -46,11 +46,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<StackPane stylesheets="@../../../../resources/css/Button.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane stylesheets="@../../../../../src/main/resources/css/UI.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0">
          <children>
-            <Slider id="slider" fx:id="slider" layoutX="3.0" layoutY="702.0" prefHeight="24.0" prefWidth="1000.0" style="" stylesheets="@../../../../resources/css/slider.css" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.6666666666667425" />
+            <Slider id="slider" fx:id="slider" layoutX="3.0" layoutY="702.0" prefHeight="24.0" prefWidth="1000.0"  AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.6666666666667425" />
             <AnchorPane fx:id="Pane" onMouseDragged="#onMouseDraggedForMove" onMousePressed="#onMousePressedForMove" prefHeight="50.0" prefWidth="1013.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button layoutX="760.0" layoutY="14.0" mnemonicParsing="false" onAction="#Minimize" prefHeight="36.0" prefWidth="80.0" text="最小化" AnchorPane.rightAnchor="160.0" />
@@ -78,7 +78,7 @@
                   </MenuBar>
                </children>
             </AnchorPane>
-      <ListView fx:id="list" layoutY="50.0" prefHeight="651.0" prefWidth="220.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="51.0" />
+      <ListView id="list" fx:id="list" layoutY="50.0" prefHeight="651.0" prefWidth="220.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="51.0" />
             <Rectangle id="hitbox" fx:id="hitbox" arcHeight="5.0" arcWidth="5.0" fill="#2a2e37" height="11.0" layoutX="8.0" layoutY="708.0" stroke="BLACK" strokeType="INSIDE" style="visibility: false;" width="979.0" />
             <HBox alignment="CENTER" layoutY="731.0" prefHeight="65.0" prefWidth="154.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
@@ -101,7 +101,7 @@
             </HBox>
             <AnchorPane layoutX="14.0" layoutY="686.0" prefHeight="65.0" prefWidth="235.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                <children>
-                  <Slider fx:id="vslider" prefHeight="24.0" prefWidth="129.0" stylesheets="@../../../../resources/css/slider.css" />
+                  <Slider fx:id="vslider" prefHeight="24.0" prefWidth="129.0"  />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="566.0" layoutY="618.0" prefHeight="50.0" prefWidth="434.0" AnchorPane.bottomAnchor="98.0" AnchorPane.rightAnchor="0.0">
