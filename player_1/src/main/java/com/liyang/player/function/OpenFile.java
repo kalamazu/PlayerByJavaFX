@@ -26,10 +26,8 @@ public class OpenFile {
                     File selectedDirectory = directoryChooser.showDialog(stage);
                     if (selectedDirectory != null) {
                         if(list!=null&&playMusic==null){list.getItems().clear();}
-                        if(playMusic!=null){
-                            if(playMusic.getMediaPlayer()!=null){
-                            playMusic.getMediaPlayer().stop();
-                            }
+                        if(playMusic!=null&&playMusic.getMediaPlayer()!=null){                           
+                            playMusic.getMediaPlayer().stop();                          
                         }
                         this.path=selectedDirectory.getAbsolutePath();
                         initiaMusicFolder(path);
