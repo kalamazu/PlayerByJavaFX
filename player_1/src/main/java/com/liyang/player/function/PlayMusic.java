@@ -67,7 +67,8 @@ void playMusicByButtonHandler(String path){
     play.setOnMouseClicked(event->{
         onMouseClickedUsual(event);
                 if(isPlaying){
-                    if(!list.isFocused()){
+                    if(list.getSelectionModel().isEmpty()){
+                        
                         mediaPlayer.pause();
                         isPlaying=false;
                         play.setImage(new Image("image/play.png"));
@@ -99,7 +100,7 @@ void playMusicByButtonHandler(String path){
                     if(list.getSelectionModel().getSelectedItem()==null&&mediaPlayer==null){
                         label.setText("请选择歌曲");
                     }
-                    else if(!list.isFocused()){
+                    else if(list.getSelectionModel().isEmpty()){
                         
                         mediaPlayer.play();
                         isPlaying=true;
