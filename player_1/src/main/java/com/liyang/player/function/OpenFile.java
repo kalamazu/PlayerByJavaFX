@@ -4,6 +4,7 @@ import com.liyang.player.controller.Controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.stage.DirectoryChooser;
@@ -75,7 +76,15 @@ public class OpenFile {
             System.out.println("Invalid music folder path: " + musicFolderPath);
         }
         list.setItems(musicFileNames);//为ListView设置内容
-       
+        Parent listViewParent = list.getParent();
+
+        // 添加点击事件处理程序到 ListView 的父节点
+        listViewParent.setOnMouseClicked(event -> {
+            // 如果点击事件不在 ListView 区域内，则清除 ListView 的选择
+            if (!list.getBoundsInLocal().contains(event.getX(), event.getY())) {
+                list.getSelectionModel().clearSelection();
+            }
+        });
     }
 
 }

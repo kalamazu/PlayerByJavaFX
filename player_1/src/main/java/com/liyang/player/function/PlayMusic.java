@@ -167,9 +167,9 @@ void playMusicByItemHandler(String path){
             mediaPlayer.setOnEndOfMedia(()->{
                 mediaPlayer.stop();
                 playRandomMusic(path);
-            });
-            
+            });           
         }
+      
      });
 }
 
